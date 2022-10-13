@@ -7,24 +7,31 @@ class Solution:
                 return s
             else:
                 return s[0]
+        longest_result = s[0]
         for first in range(len(s) - 1):
             for last in range(len(s) - 1, first, -1):
                 if s[first] == s[last]:
-                    new_first = first + 1
-                    new_last = last - 1
-                    while new_first <= new_last and s[new_first] == s[new_last]:
-                        new_first += 1
-                        new_last -= 1
-                    if new_first > new_last:
-                        return s[first:last+1]
+                    left_start = first
+                    right_end = last+1
+                    left_end = first + (last+1-first) // 2
+                    right_start = first + (last+1-first) // 2 + 1
+
+                    if (last+1-first) % 2 == 0:
+                        left_end = first + int((last+1-first) / 2)
+                        right_start = first + int((last+1-first) / 2)
+
+                    left = s[left_start:left_end]
+                    right = s[right_start:right_end]
+                    if left == right[::-1] and last+1-first > len(longest_result):
+                        longest_result = s[first:last+1]
                     else:
                         continue
                 else:
                     continue
-        return s[0]
+        return longest_result
 
 
 obj = Solution()
-input_ = "cbbd"
+input_ = "bdcedb"
 result = obj.longestPalindrome(input_)
 print("result: ", result)
