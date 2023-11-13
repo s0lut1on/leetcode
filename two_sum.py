@@ -1,14 +1,12 @@
 from typing import List
 
-
+#lưu lại index của mảng vào mảng khác, sort list và index, 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         list_index = list(range(len(nums)))
         nums, list_index = list(zip(*sorted(zip(nums, list_index))))
         nums = list(nums)
         list_index = list(list_index)
-        print(nums)
-        print(list_index)
         for end in range(len(nums) - 1, 0, -1):
             for start in range(0, end):
                 sum_ = nums[start] + nums[end]
